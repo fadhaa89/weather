@@ -6,21 +6,16 @@ var cityName = "chicago";
 var APIkey = "d028839cdc9a1c9698eac3bfe3105f91";
 //WEATHER API as it is
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
+var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?q=";
 //this queryURL is as it is from the the web 
 var queryURL = weatherAPI + cityName + "&appid=" + APIkey;
 console.log(queryURL);
 
-//var units = 
 var getWeatherIcon = "http://openweathermap.org/img/wn/";
 
 var searchHistoryArr = [];
 
 var todayWeather = {};
-// START
-
-//  function init () {
-//     console.log("Hello!")
-// }
 
 //ajax fot currentweather to get the current weather feom openwaether.
 //define the function -
