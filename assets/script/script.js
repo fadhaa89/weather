@@ -15,7 +15,11 @@ var getWeatherIcon = "http://openweathermap.org/img/wn/";
 
 var searchHistoryArr = [];
 
-var todayWeather = {};
+var currentWeather = {};
+var searchHistory = [];
+var searchInput = '';
+var forecastWeatherArr = [];
+var cityState;
 
 //ajax fot currentweather to get the current weather feom openwaether.
 //define the function -
@@ -29,11 +33,24 @@ function currentWeather () {
     })
     
 }
+// search function
+function search() {
+    $("#search-button").on("click", function () {
+      citySearch = $("#search-input").val().trim();
+
+      if (citySearch === "") {
+        return;
+      }
+      $("#search-input").val("");
+      getWeather(citySearch);
+    });
+  }
+
 
 //as soon html loads do this things :
 //$(document).ready(function () {
     //init();
     //call the function by name
-    currentWeather();
+    //currentWeather();
 
-// });
+
