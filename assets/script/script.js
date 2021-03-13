@@ -48,7 +48,11 @@ function search() {
       getWeather(citySearch);
     });
   }
-
+//save the search history to local storage
+function saveSearchHistory(searchInput) {
+    searchHistory.push(searchInput);
+    localStorage.setItem(LS_KEY, JSON.stringify(searchHistory));
+}
 
 //as soon html loads do this things :
 //$(document).ready(function () {
