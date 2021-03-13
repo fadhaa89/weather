@@ -1,6 +1,6 @@
 //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 //request /instruction how make a request
-
+// need a function that grabs the city input and plugs that into the getWeather function, and a solution for CORS errors
 var cityName = "chicago";
 //API KEY 
 var APIkey = "d028839cdc9a1c9698eac3bfe3105f91";
@@ -22,6 +22,12 @@ var searchInput = '';
 var forecastWeatherArr = [];
 var cityState;
 
+eventListeners = () => {
+  $('#search-button"').on('click', function (event) {
+      event.preventDefault();
+      alert("Hello!");
+  })
+}
 //ajax fot currentweather to get the current weather feom openwaether.
 //define the function -
 function currentWeather () {
@@ -54,7 +60,6 @@ function saveSearchHistory(searchInput) {
     searchHistory.push(searchInput);
     localStorage.setItem(LS_KEY, JSON.stringify(searchHistory));
 }
-
 //ADDS CITY TO LIST BOX <-----THIS FUNCTION NOT WORKING PROPERLY
 function addToCityList() {
     if (searchHistory) {
@@ -65,27 +70,6 @@ function addToCityList() {
 }
 var date;
 let currentData;
-
-
-async function getWeatherData() {
-//var paramsCurrent = "current" + "?key=" + API_KEY + "&units=i&city=";
-var uviQueryURL = uviAPI + lat + "&lon=" + lon + APIkey; // uv API KEy
-var url = wbEndPt;
-cityState = getUserInputs();
-paramsCurrent += cityState;
-url += paramsCurrent;
-await weatherNow(url, cityState);
-getForecastData();
-}
-
-function getForecastData() {
-var paramsCurrent = "forecast/daily" + "?key=" + API_KEY + "&units=i&city=" + cityState + "&days=5";
-var url = wbEndPt;
-url += paramsCurrent;
-weatherForecast(url);
-// const forecastQueryURL = "http://api.weatherbit.io/v2.0/forecast/daily?key=314f8e60676745089873728b30174cc3&units=i&city=Novato, CA&days=5";
-}
-
 
 function uvindex(uv) {
 console.log("uv is " + JSON.stringify(uv));
@@ -106,7 +90,6 @@ $('#current-uv').css('uv-low') //green
 
 //$(document).ready(function () {
 //setup();
-getWeatherData();
 //});
 
 //as soon html loads do this things :
@@ -115,4 +98,4 @@ getWeatherData();
     //call the function by name
     //currentWeather();
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
