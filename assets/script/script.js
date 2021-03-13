@@ -29,6 +29,9 @@ function currentWeather () {
         method: "GET",
     }).then(function (response) {
         console.log(response)
+        $("#error-div").hide();
+      $("#current-forecast").show();
+      $("#five-day-forecast-container").show();
         
     })
     
