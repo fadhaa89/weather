@@ -25,43 +25,37 @@ var searchInput = '';
 var forecastWeatherArr = [];
 var cityState;
 
+function getWeather () {
+  $.ajax ({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+        }, //to handle the cors error 
+  }).then(function (response) {
+      console.log(response)
+
+  })
+  
+}
+
+// search function
+//whatever in city input its a value
+function search() {
+    console.log('running search function');
+    cityName = $("#city-input").val().trim();
+    getWeather();
+    return cityName 
+};
+///////////////////////////////////////////////////////////////////////
 eventListeners = () => {
   $('#search-button').on('click', function (event) {
       event.preventDefault();
       search();
-
   })
 }
 
-//ajax fot currentweather to get the current weather feom openwaether.
-//define the function -
-function currentWeather () {
-    $.ajax ({
-        url: queryURL,
-        method: "GET",
-    }).then(function (response) {
-        console.log(response)
-        $("#error-div").hide();
-      $("#current-forecast").show();
-      $("#five-day-forecast-container").show();
-        
-    })
-    
-}
-// search function
-//whatever in city input its a value
 
-function search() {
-      cityName = $("#city-input").val().trim();
-      alert(cityName);// val not a string 
-    };
-
-  // get the city
-  getCity = () => {
-    console.log("Running getCity function.");
-    cityName = $('#city').val();
-    return cityName
-}
 //save the search history to local storage
 
 
