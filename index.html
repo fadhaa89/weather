@@ -60,6 +60,7 @@
               <!-- current weather container -->
               <div class="pb-4" id="current-weather-container">
                 <div id="temperature"></div>
+                
                 <p class="pb-4">temperature:<div id="temperature"></div></p>
                 <div id="humidity"></div>
                 <p class="pb-4">Humidity:<div id="humidity"></div></p>
@@ -71,14 +72,24 @@
             </div>
           </div>
           <!-- five day forecast container -->
-          <div class="row flex-column pt-3" id="five-day-forecast-container">
+          <div class="card" style="width: 18rem;">
+            <img src="https://files.slack.com/files-pri/T2Q1STQ1G-F01QR9P4X39/placeholders__converted_-02.png" class="card-img-top mt-3" alt="weather icon" style="width:80px; margin:auto">
+                <div class="card-body">
+                    <h5 class="card-title">Date01</h5>
+                    <p class="card-text">Humidity: </p>
+                    <p>wind-speed:</p>
+                    <p>uv-index:</p>
+                </div>
+            </div>
+          <!-- <div class="row flex-column pt-3" id="five-day-forecast-container">
             <div class="row no-gutters">
               <h4 class="font-weight-bold">5-Day Forecast:</h4>
-            </div>
+            </div> -->
             <!--Day 01-->
             <div class="row no-gutters">
+              
               <div class="col-lg mx-1 pb-2">
-                <img src="https://files.slack.com/files-pri/T2Q1STQ1G-F01QR9P4X39/placeholders__converted_-02.png" class="card-img-top mt-3" alt="weather icon" style="width:80px; margin:auto">
+                
                 <div class="card text-white bg-primary" id="day-1">
                   <div class="card-body">
                     <h5 class="card-title" id="date-1"></h5>
