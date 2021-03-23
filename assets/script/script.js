@@ -25,6 +25,7 @@ var searchInput = '';
 var forecastWeatherArr = [];
 var cityState;
 
+
 function getWeather () {
   $.ajax ({
       url: queryURL,
@@ -34,6 +35,10 @@ function getWeather () {
         }, //to handle the cors error 
   }).then(function (response) {
       console.log(response)
+      var description = response.weather[0].description ;
+      console.log("description",description);
+      $("#description").text(description);//id is assigned-text function-
+
 
   })
   
