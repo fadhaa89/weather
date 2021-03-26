@@ -5,18 +5,20 @@
 var cityName = "chicago";
 //API KEY 
 var APIkey = "d028839cdc9a1c9698eac3bfe3105f91";
-//WEATHER API as it is
+//WEATHER API as it one day weather//
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
 
 var lat = "41.8781";
 var lon = "87.6298";
-var forecastAPI = `api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${APIkey}`;
+
+//5day 
+var forecastAPI = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${APIkey}`;
 console.log(forecastAPI);
-uviAPI = "https://api.openweathermap.org/data/2.5/uvi?lat=";
+
 //this queryURL is as it is from the the web 
-//var queryURL = weatherAPI + cityName + "&appid=" + APIkey;
+var queryURL = weatherAPI + cityName + "&appid=" + APIkey;
 //console.log(queryURL);
-var corsProxy = "https://cors-anywhere.herokuapp.com/";
+var corsProxy = "http://cors-anywhere.herokuapp.com/";
 var queryURL = corsProxy + forecastAPI;
 console.log(queryURL);
 
@@ -27,11 +29,12 @@ var searchHistoryArr = [];
 var currentWeather = {};
 var searchHistory = [];
 var searchInput = '';
-var forecastWeatherArr = [];
+// var forecastWeatherArr = [];
 var cityState;
 
 
 function getWeather () {
+  console.log('getWeather')
   $.ajax ({
       url: queryURL,
       method: "GET",
@@ -42,16 +45,59 @@ function getWeather () {
       console.log(response)
 
       forecastWeatherArr = response;
+      console.log('response',response);
+      lat=response.lat
+      lon=response.lon
+
       
       $("#temp").text(forecastWeatherArr.current.temp);//id is assigned-text function-
       $("#humidity").text(forecastWeatherArr.current.humidity);//id is assigned-text function-
       $("#windSpeed").text(forecastWeatherArr.current.wind_speed);//id is assigned-text function-
       $("#uvIndex").text(forecastWeatherArr.current.uvi);//id is assigned-text function-
-      $("#description").text(description);//id is assigned-text function-
-      $("#description").text(description);//id is assigned-text function-
+
+//       /////////////////////////////////////////////////////////////////////////////////
+//       for (let index = 0; index < 5; index++) { //forloop for 5days weather /
+//       var card = document.createElement("div").setAttribute("class","card")//div and clSS NAME IS CREATED 
+//       var image =document.createElement("div").classList.add("card-img-top", "mt-3")
+//       image.setAttribute("src", weatherIconURL) //set the src attribute of ur img tag
+//       card.append(image);
+
+//       }
+     
+//   })
   
-  })
-  
+// }
+/////////////////////////////////////////////////////////////////////
+}).then(()=>{
+// fetch(forecastAPI)
+$.ajax ({
+  url:corsProxy +  forecastAPI,
+  method: "GET",
+  headers: {
+    "X-Requested-With": "XMLHttpRequest"
+    }, //to handle the cors error 
+})
+.then((response2) => {
+  console.log('response2',response2)
+    for (let i = 0; i < forecast.list.length; i++) {
+        // console.log(forecast.list[i].dt_txt.split(" ")[1]);
+        if (forecast.list[i].dt_txt.split(" ")[1] === "12:00:00") {
+            console.log(forecast.list[i]);
+            document.getElementById(
+                "day-" + day + "-h5"
+            ).textContent = forecast.list[i].dt_txt.split(" ")[0];
+            document.getElementById("temp-" + day).textContent =
+                (forecast.list[i].main.temp * (9 / 5) - 459.67).toFixed(0) + "F";
+            document.getElementById("humidity-" + day).textContent =
+                forecast.list[i].main.humidity + "humidity";
+            // document.getElementById("weather-" + day).textContent =
+            //     forecast.list[i].main.weather;
+            day++;
+        }
+    }
+});
+})
+
 }
 
 // search function
@@ -63,12 +109,6 @@ function search() {
     return cityName 
 };
 ///////////////////////////////////////////////////////////////////////
-eventListeners = () => {
-  $('#search-button').on('click', function (event) {
-      event.preventDefault();
-      search();
-  })
-}
 
 
 //save the search history to local storage
@@ -93,6 +133,11 @@ eventListeners = () => {
 // $('#current-uv').css('uv-low') //green
 // }
 // }
-$(document).ready(function (){
-  eventListeners()
-});
+// $(document).ready(function (){
+//   eventListeners()
+
+  $('#search-button').on('click', function (event) {
+    console.log('search-button')
+      event.preventDefault();
+      search();
+  })
