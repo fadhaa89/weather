@@ -133,6 +133,15 @@ function search() {
     return cityName 
 };
 
+
+//   eventListeners()
+
+  $('#search-button').on('click', function (event) {
+    console.log('search-button')
+      event.preventDefault();
+      
+      getWeather(cityName);
+
 var storedItem = localStorage.getItem("storedItem");
 
 function save() {
@@ -145,47 +154,4 @@ function git() {
     localStorage.getItem("storedItem");
     document.getElementById("openedText").innerHTML = storedItem + "OPENED";
 }
-//   eventListeners()
-
-  $('#search-button').on('click', function (event) {
-    console.log('search-button')
-      event.preventDefault();
-      
-      getWeather(cityName);
   })
-  function uvColor(uv) {
-    console.log("uv is " + JSON.stringify(uv));
-    if (uv < 3) {
-        $('#current-uv').addClass('uv-low') //green
-    } else if (uv > 2 && uv < 6) {
-        $('#current-uv').addClass('uv-mod-lo') //yellow
-    } else if (uv > 5 && uv < 8) {
-        $('#current-uv').addClass('uv-mod-hi') //orange   
-    } else if (uv > 7 && uv < 10) {
-        $('#current-uv').addClass('uv-severe-lo') //red
-    } else if (uv > 9) {
-        $('#current-uv').addClass('uv-severe-hi') //purple
-    } else {
-        $('#current-uv').addClass('uv-low') //green
-    }
-}
-
-// let currentData;
-
-// function uvindex(uv) {
-// console.log("uv is " + JSON.stringify(uv));
-// if (uv < 3) {
-// $('#current-uv').css('uv-low') //green
-// } else if (uv > 2 && uv < 6) {
-// $('#current-uv').css('uv-mod-lo') //yellow
-// } else if (uv > 5 && uv < 8) {
-// $('#current-uv').css('uv-mod-hi') //orange   
-// } else if (uv > 7 && uv < 10) {
-// $('#current-uv').css('uv-severe-lo') //red
-// } else if (uv > 9) {
-// $('#current-uv').css('uv-severe-hi') //purple
-// } else {
-// $('#current-uv').css('uv-low') //green
-// }
-// }
-// $(document).ready(function (){
