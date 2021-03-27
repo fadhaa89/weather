@@ -36,12 +36,15 @@ return cityName;
 
 appendForecast = (forecastArray) => {
   console.log("Running appendForecast function on this array:", forecastArray);
+  var uvindex = forecastArray[0].uvi;//first item in the array-todays forecast
+  console.log("uvIndex",uvindex);
+  $('#uvIndex').text(uvIndex);
   $('#forecast').empty();
   for (i=0; i < forecastArray.length - 3; i++) {
       let dayWeatherObj = forecastArray[i];
       console.log("dayWeatherObj", dayWeatherObj);
-      let UTCday = dayWeatherObj.dt;
-      let day = new Date(UTCday*1000);
+      let UTCday = dayWeatherObj.dt;//universal format
+      let day = new Date(UTCday*1000);//convert time to a readable time
       let shortDay = (moment(day).format('ddd MMMM Do'));
       let iconImage = `http://openweathermap.org/img/wn/${dayWeatherObj.weather[0].icon}@2x.png`;
       $('#forecast').append(
@@ -130,6 +133,18 @@ function search() {
     return cityName 
 };
 
+var storedItem = localStorage.getItem("storedItem");
+
+function save() {
+    var Item = document.getElementById("txtCity").value;
+    localStorage.setItem("storedItem", Item);
+    document.getElementById("savedText").textHTML = Item + "SAVED";
+}
+
+function git() {
+    localStorage.getItem("storedItem");
+    document.getElementById("openedText").innerHTML = storedItem + "OPENED";
+}
 //   eventListeners()
 
   $('#search-button').on('click', function (event) {
@@ -138,6 +153,23 @@ function search() {
       
       getWeather(cityName);
   })
+  function uvColor(uv) {
+    console.log("uv is " + JSON.stringify(uv));
+    if (uv < 3) {
+        $('#current-uv').addClass('uv-low') //green
+    } else if (uv > 2 && uv < 6) {
+        $('#current-uv').addClass('uv-mod-lo') //yellow
+    } else if (uv > 5 && uv < 8) {
+        $('#current-uv').addClass('uv-mod-hi') //orange   
+    } else if (uv > 7 && uv < 10) {
+        $('#current-uv').addClass('uv-severe-lo') //red
+    } else if (uv > 9) {
+        $('#current-uv').addClass('uv-severe-hi') //purple
+    } else {
+        $('#current-uv').addClass('uv-low') //green
+    }
+}
+  
 // let currentData;
 
 // function uvindex(uv) {
