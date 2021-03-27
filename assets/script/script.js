@@ -26,7 +26,7 @@ var searchHistoryArr = [];
 var currentWeather = {};
 var searchHistory = [];
 var searchInput = '';
-var forecast;
+var forecastArray = [];
 var cityState;
 var todayWeather ={};
 
@@ -35,6 +35,28 @@ cityName = $("#searchCityBar").val();
 console.log("cityName:"+ cityName)
 return cityName;
 }
+
+appendForecast = (forecastArray) => {
+  console.log("Running appendForecast function on this array:", forecastArray);
+  $('#forecast').empty();
+  for (i=0; i < forecastArray.length - 3; i++) {
+      let dayWeatherObj = forecastArray[i];
+      let UTCday = dayWeatherObj.dt;
+      let day = new Date(UTCday*1000);
+      let shortDay = (moment(day).format('ddd MMMM Do'));
+      let iconImage = `http://openweathermap.org/img/wn/${dayWeatherObj.weather[0].icon}@2x.png`;
+      $('#forecast').append(
+          `<div class="card" style="width: 20%;">
+              <img src="${iconImage}" class="card-img-top mt-3" alt="weather icon" style="width:80px; margin:auto">
+                  <div class="card-body">
+                      <h5 class="card-title">${shortDay}</h5>
+                      <p class="card-text">Temperature: ${dayWeatherObj.humidity}F<br>
+                      Humidity: ${dayWeatherObj.humidity}%</p>
+                  </div>
+          </div>`)
+  }
+}
+
 
 function getWeather () {
  cityName = getCity();
@@ -72,7 +94,7 @@ function getWeather () {
 }).then(()=>{
 // fetch(forecastAPI)
 $.ajax ({
-  url:corsProxy +  forecastAPI,
+  url:`${corsProxy}http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${APIkey}`,
   method: "GET",
   headers: {
     "X-Requested-With": "XMLHttpRequest"
@@ -80,24 +102,24 @@ $.ajax ({
 })
 .then((response2) => {
   console.log('response2',response2)
-  forecast.list = response2;
-    for (let i = 0; i < forecast.list.length; i++) {
-
+  forecastArray = response2;
+  appendForecast(forecastArray);
+    // for (let i = 0; i < forecastArray.length; i++) {
         // console.log(forecast.list[i].dt_txt.split(" ")[1]);
-        if (forecast.list[i].dt_txt.split(" ")[1] === "12:00:00") {
-            console.log(forecast.list[i]);
-            document.getElementById(
-                "day-" + day + "-h5"
-            ).textContent = forecast.list[i].dt_txt.split(" ")[0];
-            document.getElementById("temp-" + day).textContent =
-                (forecast.list[i].main.temp * (9 / 5) - 459.67).toFixed(0) + "F";
-            document.getElementById("humidity-" + day).textContent =
-                forecast.list[i].main.humidity + "humidity";
-            // document.getElementById("weather-" + day).textContent =
-            //     forecast.list[i].main.weather;
-            day++;
-        }
-    }
+        // if (forecast.list[i].dt_txt.split(" ")[1] === "12:00:00") {
+        //     console.log(forecast.list[i]);
+        //     document.getElementById(
+        //         "day-" + day + "-h5"
+        //     ).textContent = forecast.list[i].dt_txt.split(" ")[0];
+        //     document.getElementById("temp-" + day).textContent =
+        //         (forecast.list[i].main.temp * (9 / 5) - 459.67).toFixed(0) + "F";
+        //     document.getElementById("humidity-" + day).textContent =
+        //         forecast.list[i].main.humidity + "humidity";
+        //     // document.getElementById("weather-" + day).textContent =
+        //     //     forecast.list[i].main.weather;
+        //     day++;
+        // }
+    // }
 });
 })
 
