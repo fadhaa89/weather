@@ -38,7 +38,7 @@ appendForecast = (forecastArray) => {
   console.log("Running appendForecast function on this array:", forecastArray);
   var uvindex = forecastArray[0].uvi;//first item in the array-todays forecast
   console.log("uvIndex",uvindex);
-  $('#uvIndex').text(uvIndex);
+  $('#uvIndex').text(uvindex);
   $('#forecast').empty();
   for (i=0; i < forecastArray.length - 3; i++) {
       let dayWeatherObj = forecastArray[i];
@@ -169,7 +169,7 @@ function git() {
         $('#current-uv').addClass('uv-low') //green
     }
 }
-  
+
 // let currentData;
 
 // function uvindex(uv) {
