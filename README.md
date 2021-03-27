@@ -16,7 +16,7 @@ clone the repo
 ![Example Gif](./assets/images/example.gif)
  
 # repo
-
+https://fadhaa89.github.io/weather/.
 
 
 # deployed
