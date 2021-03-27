@@ -1,13 +1,11 @@
-//https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid={API key}
-//request /instruction how make a request
-// need a function that grabs the city input and plugs that into the getWeather function, and a solution for CORS errors
+
 var cityName;
 //API KEY 
 var APIkey = "d028839cdc9a1c9698eac3bfe3105f91";
 var todayWeatherApi = `api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIkey}`;
 //WEATHER API as it one day weather//
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
-
+var today = (moment().format('ddd, MMMM DD, YYYY'));
 var lat;
 var lon;
 
@@ -41,6 +39,7 @@ appendForecast = (forecastArray) => {
   $('#forecast').empty();
   for (i=0; i < forecastArray.length - 3; i++) {
       let dayWeatherObj = forecastArray[i];
+      console.log("dayWeatherObj", dayWeatherObj);
       let UTCday = dayWeatherObj.dt;
       let day = new Date(UTCday*1000);
       let shortDay = (moment(day).format('ddd MMMM Do'));
@@ -102,7 +101,7 @@ $.ajax ({
 })
 .then((response2) => {
   console.log('response2',response2)
-  forecastArray = response2;
+  forecastArray = response2.daily;
   appendForecast(forecastArray);
     // for (let i = 0; i < forecastArray.length; i++) {
         // console.log(forecast.list[i].dt_txt.split(" ")[1]);
