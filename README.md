@@ -15,11 +15,12 @@ clone the repo
 # example 
 ![Example Gif](./assets/images/example.gif)
  
-# repo
+# deployed
 https://fadhaa89.github.io/weather/.
 
 
-# deployed
+# repo
+https://github.com/fadhaa89
 
 
 
